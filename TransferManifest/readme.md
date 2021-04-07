@@ -30,3 +30,12 @@ When running the manifest, you have to specify the "from" and "to" branch locati
    * Select your source and destination locations and click "apply" at the top of the panel.
 3. Print, email or export your report.
 4. The driver should hand-complete the blank fields at the top of the manifest. When fully completed, it should fullfil DOT manifest requirements (do your own research to ensure compliance).
+
+## Modifications
+
+You may have a better method to identify which transfers are ready for manifesting. In that case, you should modify the sql function to pull only the lines you identiry by your custom method. Just know, transfers are kind of tricky and unique to each business. Be careful about the criteria you use to identify what should to on the manifest.
+
+Some possible changes:
+1. Create a custom field on the transfer so that you can specify some kind of unique shipment ID number. Then you would tag your transfers by the shipment ID and that would also allow you to run manifests in the past.
+2. You may be able to use the transfer required date or scheduled date to identify the manifest lines. Be cautious of using shipment date becasue you may ship a transfer when it was picked and that may not be the same day that you actually transfer the shipment. (For example, we ship to branch 20 on Tuesday. But we may pick and ship the transfers on Mondy. But some last minute transfers may be picked Tuesday morning. And, we may have already started pulling transfers for the next day.)
+
