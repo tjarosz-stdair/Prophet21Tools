@@ -1,3 +1,5 @@
+# Transfer Manifest
+
 The transfer manifest provides an easy-to-understand report that can accompany your transfer shipments. The manifest was designed to fulfill DOT manifest requirements by listing the from and to addresses as well as all the items in the shipment. It also provides a quick reference to your receiving branch employees to reduce the amout of paper work accompanying the shipment. It also clearly shows which transfers are tied to customer orders.
 
 Without the transfer manifest, our employees would send a copy of the transfer packing list with the shipment. Some shipments could have 20 or more transfers especially if they were order-based-transfers.
