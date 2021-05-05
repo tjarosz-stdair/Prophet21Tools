@@ -1,6 +1,11 @@
 # Prophet21 Tools
 Various tools, code, snippets, etc. for the Epicor Prophet 21 ERP.
 
+## Disclaimer
+Use these code snippets at your own risk. Neither I, nor Standard Air & Lite, assume any liability from your use of any data on this repository. All code should be reviewed by a qualified database administrator prior to implementation.
+
+**TEST! TEST! TEST!** Always test in your play database prior to implementing in production.
+
 ## AP Management
 
 #### Check Register Export
