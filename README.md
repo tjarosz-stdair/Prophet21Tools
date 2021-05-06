@@ -14,15 +14,15 @@ To prevent check fraud, some banks provide a mechanism where you can upload a li
 
 ## AR Management
 
-#### AR Monthly Customer Report
+#### New Customer Report
 
-The AR Monthly Customer Report is a SQL stored procedure that sends an automated email to the AR department with a list of newly added accounts and a list of possible duplicate accounts. We have this setup as a SQL job that runs on the first of the month. This allows the AR team to review new accounts to ensure that our sales order entry team isn't duplicating accounts (by poorly searching for a customer before creating a new account.) The AR team can set the credit status and/or merge any accounts that were accidentally duplicated.
+The New Customer Report is a SQL stored procedure that sends an automated email to the AR department with a list of newly added accounts and a list of possible duplicate accounts. We have this setup as a SQL job that runs on the first of the month. This allows the AR team to review new accounts to ensure that our sales order entry team isn't duplicating accounts (by poorly searching for a customer before creating a new account.) The AR team can set the credit status and/or merge any accounts that were accidentally duplicated.
 
-#### AR Payment Receipts
+#### Payment Receipts
 
-The AR Payment Receipts spreadsheet provides a receipt that can be provided to customers as proof of payment. When performing a payment in the cash receipts window, there is no way to generate a receipt to send to the customer. This is especially helpfut for payments on-account using credit cards.
+The Payment Receipts spreadsheet provides a receipt that can be provided to customers as proof of payment. In P21, when performing a payment in the cash receipts window, there is no way to generate a receipt to send to the customer. The payment receipts spreadsheet is especially helpful for payments "on-account" using credit cards since most customers require some kind of receipt for their credit card purchases.
 
-#### Invoices - Who Printed?
+#### Who Printed Invoice?
 
 P21 records the date/time an invoice was printed but not which user printed the invoice. With a user defined field and a simple modification to the invoice table trigger, you can record the user who printed the invoice.
 
@@ -77,5 +77,14 @@ The open transfer status report/portal will show all open transfers and their cu
 #### Transfer Manifest
 
 The transfer manifest provides a computer-generated DOT-compliant manifest for transfers. The consolidated list includes all transfer lines that have been shipped but not yet received. You specify the source and destination locations when the report is run.
+
+## General Notes About P21
+
+#### Adding Custom Objects to the P21 Database
+At Standard Air & Lite, we typically don't add stored procedures (or any custom SQL object) directly to the P21 database unless they absolutely needed. Rather, we install these custom objects in our development database (SAL_Scratch.) The rationalle is that if the P21 developers ever made a change to the DB structure which would wipe out our objects, they are protected in the dev database. 
+
+The only reason we add objects directly to the P21 database is if the object is used from within the P21 GUI. For example, if you create a portal in P21 which uses a view, you cannot point the portal at a view running in another DB. P21 simply cant resolve the security context in other databases. So, you have to create the view within the P21 DB directly.
+
+**RECOMMENDED: ** Make sure you add a prefix to custom objects added to the P21 database. We add the text "SAL_" as a prefix on all custom object names. This helps us to identify that it is a custom object owned by us and not a P21-owned object. It also puts all your objects together when scrolling through object explorer in SSMS.
 
 
