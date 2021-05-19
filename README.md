@@ -54,11 +54,17 @@ The customer open order report is a SQL stored procedure that will send an autom
 
 Background: During the COVID-19 pandemic in early 2020, we started running into supplier performace issues and a had a lot of due-in material that custoemers were clamoring for. We wanted to give our customers some visibility into what they had on order in case they needed to prioritize a job. As our suppliers cleared their backlog and our inventory returned to normal levels, the report is still useful to remind customers of all the material they have waiting on Will/Call. On our system, the stored procedure runs as an SQL job every Monday, Wednesday and Friday. Our customers have come to expect this email report and use it as a double check for their procurement operations.
 
-#### Get Customer Pricing - By Customer, Supplier, Product Group, etc.
+#### Customer Pricing - By Customer, Supplier, Product Group, etc.
 
-The Get Customer Pricing (GCP) stored procedure will take several input parameters and return a list of items with customer-specific pricing. The script will run a list of items through the  built-in P21 pricing engine stored procedure. You can price a large batch of items in just a few seconds. The built-in P21 customer pricing reports are cumbersome and not easily convertible to an excel-ready format. This GCP method starts with an excel spreadsheet, calls the GCP stored procedure with several parameters and returns an-excel formatted, customer-specific pricing list. 
+The Customer Pricing (GCP) stored procedure will take several input parameters and return a list of items with customer-specific pricing. The script will run a list of items through the  built-in P21 pricing engine stored procedure. You can price a large batch of items in just a few seconds. The built-in P21 customer pricing reports are cumbersome and not easily convertible to an excel-ready format. This GCP method starts with an excel spreadsheet, calls the GCP stored procedure with several parameters and returns an-excel formatted, customer-specific pricing list. 
 
 Pricing 3108 items took 58 seconds (approx. 53.6 items/sec); there are slower methods out there.
+
+#### Mandatory Accessories
+
+The mandatory accessories is a P21 business rule that adds "mandatory accessories" to order entry. In item maintenance, on the parent item's accessories tab, you can add accessories and mark them "mandatory". When the parent item is entered in order entry, the mandatory accessories will be automatically added to the order at the quantity specified on the accessories tab.
+
+This rule requires a user-defined field on the item_accessories table. The rule triggers when the order quantity is entered in order entry.
 
 #### Serial Number History Portal
 
@@ -86,5 +92,8 @@ At Standard Air & Lite, we typically don't add stored procedures (or any custom 
 The only reason we add objects directly to the P21 database is if the object is used from within the P21 GUI. For example, if you create a portal in P21 which uses a view, you cannot point the portal at a view running in another DB. P21 simply cant resolve the security context in other databases. So, you have to create the view within the P21 DB directly.
 
 **RECOMMENDED: ** Make sure you add a prefix to custom objects added to the P21 database. We add the text "SAL_" as a prefix on all custom object names. This helps us to identify that it is a custom object owned by us and not a P21-owned object. It also puts all your objects together when scrolling through object explorer in SSMS.
+
+#### Triggering P21 Business Rules when an Item is added to Order Entry
+When you add an item in order entry, and you need to trigger a business rule when that item is added, you cannot trigger the rule on the item_id field itself. The reasoning is that when you enter an item_id, the window does alot of background lookups to populate the item row (pricing, availability, ext'd info, etc.). But, business rules on the item_id field will trigger as soon as the user enters the item_id and before the item row is fully populated. So, if you need information about the item in your business rule, the only fail safe way to trigger the rule is on the quantity or pricing fields. I usually just trigger on the qty_ordered column since P21 forces the user to enter a quantity ordered immediately after the item_id is entered.
 
 

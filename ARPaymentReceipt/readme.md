@@ -21,5 +21,5 @@ Known Limitations: When you request a receipt, you enter one of the invoice numb
 #### To Use
 
 1. Open the spreadsheet. Click on the "Get New Receipt" button. Enter an invoice that was paid on the particular cash receipt you need to generate a payment receip for. 
-2. Click either the "Email Receipt" or "Print Receipt" buttons. If emailing, you will be prompted for the email address to send the receipt to. Note: with emailing receipts, a temp .pdf file is created and then the default mail application is opened and the file is attached to it. If using outlook, you will receive a pop-up asking if you allow the email integration. The oulook pop-up forces a 5 second delay before you can click allow.
+2. Click either the "Email Receipt" or "Print Receipt" buttons. If emailing, you will be prompted for the email address to send the receipt to. Note: with emailing receipts, a temp .pdf file is created and then the default mail application is opened and the file is attached to it. If using outlook, you will receive a pop-up asking if you allow the email integration. The oulook pop-up forces a 5 second delay before you can click "allow".
 
